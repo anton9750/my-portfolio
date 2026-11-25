@@ -50,11 +50,11 @@ const Intro = styled.div`
 const Portrait = styled.img`
   display: block;
   width: 100%;
-  max-height: 390px;
+  max-height: none;
   align-self: end;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1;
   border: 1px solid rgb(255 255 255 / 48%);
-  border-radius: 48% 48% 4px 4px;
+  border-radius: 50%;
   object-fit: cover;
   object-position: center 38%;
   box-shadow: 0 22px 55px rgb(60 16 20 / 24%);
@@ -176,7 +176,10 @@ export function HomePage() {
           <Info>WEB DEVELOPMENT</Info>
         </InfoRow>
       </Intro>
-      <Portrait src="/anton-portrait.jpg" alt="Portrait of Anton Olander Jensen" />
+      <Portrait
+        src={`${import.meta.env.BASE_URL}anton-portrait.jpg`}
+        alt="Portrait of Anton Olander Jensen"
+      />
     </Welcome>
   )
 }
