@@ -4,11 +4,11 @@ import styled from 'styled-components'
 const Welcome = styled.section`
   position: relative;
   isolation: isolate;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(190px, 27vw, 320px);
+  align-items: center;
+  gap: clamp(24px, 5vw, 64px);
   min-height: clamp(340px, 48vh, 500px);
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
   overflow: hidden;
   padding: clamp(24px, 4.5vw, 56px);
   background: linear-gradient(128deg, #c91f32 0%, #e4383c 52%, #fa6848 100%);
@@ -36,6 +36,33 @@ const Welcome = styled.section`
     height: 1px;
     background: rgb(255 255 255 / 28%);
     content: '';
+  }
+
+  @media (max-width: 680px) {
+    grid-template-columns: 1fr;
+  }
+`
+
+const Intro = styled.div`
+  min-width: 0;
+`
+
+const Portrait = styled.img`
+  display: block;
+  width: 100%;
+  max-height: 390px;
+  align-self: end;
+  aspect-ratio: 3 / 4;
+  border: 1px solid rgb(255 255 255 / 48%);
+  border-radius: 48% 48% 4px 4px;
+  object-fit: cover;
+  object-position: center 38%;
+  box-shadow: 0 22px 55px rgb(60 16 20 / 24%);
+
+  @media (max-width: 680px) {
+    width: min(190px, 55vw);
+    max-height: 240px;
+    justify-self: center;
   }
 `
 
@@ -125,28 +152,31 @@ const Info = styled.span`
 export function HomePage() {
   return (
     <Welcome>
-      <IntroLabel>Web developer / Denmark</IntroLabel>
-      <Title>
-        Hey, I am Anton.<span>I build for the web.</span>
-      </Title>
-      <IntroText>
-        I am a 28-year-old web developer studying at Tech College. I enjoy
-        turning ideas into thoughtful, responsive experiences and learning
-        something new with every project.
-      </IntroText>
+      <Intro>
+        <IntroLabel>Web developer / Denmark</IntroLabel>
+        <Title>
+          Hey, I am Anton.<span>I build for the web.</span>
+        </Title>
+        <IntroText>
+          I am a 28-year-old web developer studying at Tech College. I enjoy
+          turning ideas into thoughtful, responsive experiences and learning
+          something new with every project.
+        </IntroText>
 
-      <ActionRow>
-        <PrimaryAction href="mailto:antonjensenv2@hotmail.com">
-          Get in touch <span aria-hidden="true"> ?</span>
-        </PrimaryAction>
-        <SecondaryAction to="/projects">Explore my projects</SecondaryAction>
-      </ActionRow>
+        <ActionRow>
+          <PrimaryAction href="mailto:antonjensenv2@hotmail.com">
+            Get in touch <span aria-hidden="true"> ?</span>
+          </PrimaryAction>
+          <SecondaryAction to="/projects">Explore my projects</SecondaryAction>
+        </ActionRow>
 
-      <InfoRow aria-label="A little about me">
-        <Info>28 YEARS OLD</Info>
-        <Info>TECH COLLEGE</Info>
-        <Info>WEB DEVELOPMENT</Info>
-      </InfoRow>
+        <InfoRow aria-label="A little about me">
+          <Info>28 YEARS OLD</Info>
+          <Info>TECH COLLEGE</Info>
+          <Info>WEB DEVELOPMENT</Info>
+        </InfoRow>
+      </Intro>
+      <Portrait src="/anton-portrait.jpg" alt="Portrait of Anton Olander Jensen" />
     </Welcome>
   )
 }
