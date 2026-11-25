@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { useLanguage } from '../context/LanguageContext'
 
 const ContactPanel = styled.section`
   position: relative;
@@ -94,24 +95,28 @@ const ContactLink = styled.a`
 `
 
 export function ContactPage() {
+  const { language } = useLanguage()
+  const danish = language === 'da'
+
   return (
     <ContactPanel>
-      <Eyebrow>04 / Get in touch</Eyebrow>
+      <Eyebrow>{danish ? '04 / Kontakt' : '04 / Get in touch'}</Eyebrow>
       <Heading>
-        Let us make <span>something.</span>
+        {danish ? 'Lad os skabe' : 'Let us make'} <span>{danish ? 'noget.' : 'something.'}</span>
       </Heading>
       <Intro>
-        Have an idea, a project, or just want to say hello? You can reach me by
-        email or phone.
+        {danish
+          ? 'Har du en idé, et projekt eller vil du bare sige hej? Du kan kontakte mig på mail eller telefon.'
+          : 'Have an idea, a project, or just want to say hello? You can reach me by email or phone.'}
       </Intro>
 
-      <ContactDetails aria-label="Contact details">
+      <ContactDetails aria-label={danish ? 'Kontaktoplysninger' : 'Contact details'}>
         <ContactLink href="mailto:antonjensenv2@hotmail.com">
-          <span>Email</span>
+          <span>{danish ? 'E-mail' : 'Email'}</span>
           <span>antonjensenv2@hotmail.com</span>
         </ContactLink>
         <ContactLink href="tel:69302893">
-          <span>Phone</span>
+          <span>{danish ? 'Telefon' : 'Phone'}</span>
           <span>69302893</span>
         </ContactLink>
       </ContactDetails>

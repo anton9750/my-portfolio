@@ -1,6 +1,7 @@
 import { Link, NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { ThemeToggle } from './ThemeToggle'
+import { useLanguage } from '../context/LanguageContext'
 
 const Header = styled.header`
   display: flex;
@@ -57,30 +58,62 @@ const Navigation = styled.nav`
   }
 `
 
+const Controls = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  @media (max-width: 700px) { margin-left: auto; }
+`
+
+const LanguageSelect = styled.select`
+  min-height: 38px;
+  padding: 8px 28px 8px 11px;
+  border: 1px solid ${({ theme }) => theme.line};
+  background: ${({ theme }) => theme.surface};
+  color: ${({ theme }) => theme.text};
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+`
+
 export function NavBar() {
+  const { language, setLanguage } = useLanguage()
+  const danish = language === 'da'
+
   return (
     <Header>
       <Brand to="/" aria-label="Anton Olander Jensen, home">
         AO<span>.</span>
       </Brand>
-      <Navigation aria-label="Main navigation">
+      <Navigation aria-label={danish ? 'Hovednavigation' : 'Main navigation'}>
         <NavLink to="/" end>
-          Home
+          {danish ? 'Hjem' : 'Home'}
         </NavLink>
         <NavLink to="/projects">
-          Projects
+          {danish ? 'Projekter' : 'Projects'}
         </NavLink>
         <NavLink to="/about">
-          About
+          {danish ? 'Om mig' : 'About'}
         </NavLink>
         <NavLink to="/contact">
-          Contact
+          {danish ? 'Kontakt' : 'Contact'}
         </NavLink>
         <NavLink to="/ai">
           AI?
         </NavLink>
       </Navigation>
-      <ThemeToggle />
+      <Controls>
+        <LanguageSelect
+          aria-label={danish ? 'Vælg sprog' : 'Choose language'}
+          value={language}
+          onChange={(event) => setLanguage(event.target.value as 'en' | 'da')}
+        >
+          <option value="en">English</option>
+          <option value="da">Dansk</option>
+        </LanguageSelect>
+        <ThemeToggle />
+      </Controls>
     </Header>
   )
 }

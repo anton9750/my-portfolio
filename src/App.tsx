@@ -9,6 +9,7 @@ import { ContactPage } from './pages/ContactPage'
 import { HomePage } from './pages/HomePage'
 import { ProjectsPage } from './pages/ProjectsPage'
 import { ThemeContext } from './context/ThemeContext'
+import { LanguageContext, type Language } from './context/LanguageContext'
 import { darkTheme, GlobalStyle, lightTheme } from './styles/theme'
 
 type ColorMode = 'light' | 'dark'
@@ -40,32 +41,45 @@ export default function App() {
   const [theme, setTheme] = useState<ColorMode>(() =>
     window.localStorage.getItem('anton-theme') === 'dark' ? 'dark' : 'light',
   )
+  const [language, setLanguage] = useState<Language>(() =>
+    window.localStorage.getItem('anton-language') === 'da' ? 'da' : 'en',
+  )
 
   useEffect(() => {
     window.localStorage.setItem('anton-theme', theme)
   }, [theme])
+
+  useEffect(() => {
+    window.localStorage.setItem('anton-language', language)
+    document.documentElement.lang = language
+    document.title = language === 'da'
+      ? 'Anton Olander Jensen — Webudvikler'
+      : 'Anton Olander Jensen — Web Developer'
+  }, [language])
 
   const toggleTheme = () => {
     setTheme((currentTheme) => currentTheme === 'light' ? 'dark' : 'light')
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-        <GlobalStyle />
-        <BrowserRouter>
-          <Routes>
-            <Route element={<Layout />}>
-              <Route index element={<HomePage />} />
-              <Route path="projects" element={<ProjectsPage />} />
-              <Route path="about" element={<AboutPage />} />
-              <Route path="contact" element={<ContactPage />} />
-              <Route path="ai" element={<AIPage />} />
-              <Route path="*" element={<HomePage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </ThemeProvider>
-    </ThemeContext.Provider>
+    <LanguageContext.Provider value={{ language, setLanguage }}>
+      <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+          <GlobalStyle />
+          <BrowserRouter>
+            <Routes>
+              <Route element={<Layout />}>
+                <Route index element={<HomePage />} />
+                <Route path="projects" element={<ProjectsPage />} />
+                <Route path="about" element={<AboutPage />} />
+                <Route path="contact" element={<ContactPage />} />
+                <Route path="ai" element={<AIPage />} />
+                <Route path="*" element={<HomePage />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </ThemeProvider>
+      </ThemeContext.Provider>
+    </LanguageContext.Provider>
   )
 }

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { useLanguage } from '../context/LanguageContext'
 
 const FooterContainer = styled.footer`
   padding: 36px clamp(20px, 6vw, 88px) 20px;
@@ -77,17 +78,20 @@ const FooterBottom = styled.div`
 `
 
 export function Footer() {
+  const { language } = useLanguage()
+  const danish = language === 'da'
+
   return (
     <FooterContainer>
       <FooterContent>
         <FooterGroup>
           <Name>Anton Olander Jensen</Name>
-          <span>Web developer and Tech College student</span>
+          <span>{danish ? 'Webudvikler og studerende på Tech College' : 'Web developer and Tech College student'}</span>
           <span>Denmark</span>
         </FooterGroup>
 
         <FooterGroup>
-          <FooterTitle>Get in touch</FooterTitle>
+          <FooterTitle>{danish ? 'Kontakt' : 'Get in touch'}</FooterTitle>
           <FooterLink href="mailto:antonjensenv2@hotmail.com">
             antonjensenv2@hotmail.com
           </FooterLink>
@@ -95,16 +99,16 @@ export function Footer() {
         </FooterGroup>
 
         <FooterGroup>
-          <FooterTitle>Explore</FooterTitle>
-          <FooterRoute to="/projects">Projects</FooterRoute>
-          <FooterRoute to="/about">About me</FooterRoute>
-          <FooterRoute to="/contact">Contact</FooterRoute>
+          <FooterTitle>{danish ? 'Udforsk' : 'Explore'}</FooterTitle>
+          <FooterRoute to="/projects">{danish ? 'Projekter' : 'Projects'}</FooterRoute>
+          <FooterRoute to="/about">{danish ? 'Om mig' : 'About me'}</FooterRoute>
+          <FooterRoute to="/contact">{danish ? 'Kontakt' : 'Contact'}</FooterRoute>
         </FooterGroup>
       </FooterContent>
 
       <FooterBottom>
         <p>? {new Date().getFullYear()} Anton Olander Jensen</p>
-        <p>Designed and built with care.</p>
+        <p>{danish ? 'Designet og bygget med omhu.' : 'Designed and built with care.'}</p>
       </FooterBottom>
     </FooterContainer>
   )

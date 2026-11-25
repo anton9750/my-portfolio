@@ -1,6 +1,7 @@
 ﻿import { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Card, Eyebrow, Grid } from '../components/ui'
+import { useLanguage } from '../context/LanguageContext'
 
 const fadeIn = keyframes`
   from { opacity: 0; transform: translateY(18px); }
@@ -18,17 +19,17 @@ const revealDetail = keyframes`
 `
 
 const expertise = [
-  { name: 'React', detail: 'I build reusable interface components and compose them into interactive pages.' },
-  { name: 'TypeScript', detail: 'I add clear types to JavaScript so component props and application data are easier to work with.' },
-  { name: 'JavaScript', detail: 'I use JavaScript to add behaviour, handle user input, and bring web interfaces to life.' },
-  { name: '.NET', detail: 'I have worked with the .NET ecosystem as part of my web development toolkit.' },
-  { name: 'CSS', detail: 'I style responsive layouts, refine visual details, and create clear states for interactive elements.' },
-  { name: 'Tailwind CSS', detail: 'I use utility classes to build and adjust layouts directly in my components.' },
-  { name: 'SCSS', detail: 'I use SCSS features to organize styles and reuse values across a stylesheet.' },
-  { name: 'Sanity', detail: 'I work with Sanity as a content platform for managing structured website content.' },
-  { name: 'SQL', detail: 'I use SQL to query and work with structured data in relational databases.' },
-  { name: 'Three.js', detail: 'I explore Three.js to create and display interactive 3D content in the browser.' },
-  { name: 'Next.js', detail: 'I build React applications with Next.js routing and its wider frontend framework features.' },
+  { name: 'React', detail: 'I build reusable interface components and compose them into interactive pages.', detailDa: 'Jeg bygger genanvendelige komponenter og sammensætter dem til interaktive sider.' },
+  { name: 'TypeScript', detail: 'I add clear types to JavaScript so component props and application data are easier to work with.', detailDa: 'Jeg tilføjer tydelige typer til JavaScript, så komponenter og data er nemmere at arbejde med.' },
+  { name: 'JavaScript', detail: 'I use JavaScript to add behaviour, handle user input, and bring web interfaces to life.', detailDa: 'Jeg bruger JavaScript til funktionalitet, brugerinput og interaktive weboplevelser.' },
+  { name: '.NET', detail: 'I have worked with the .NET ecosystem as part of my web development toolkit.', detailDa: 'Jeg har arbejdet med .NET som en del af mine værktøjer til webudvikling.' },
+  { name: 'CSS', detail: 'I style responsive layouts, refine visual details, and create clear states for interactive elements.', detailDa: 'Jeg styler responsive layouts, finpudser detaljerne og skaber tydelige tilstande for interaktive elementer.' },
+  { name: 'Tailwind CSS', detail: 'I use utility classes to build and adjust layouts directly in my components.', detailDa: 'Jeg bruger utility-klasser til at bygge og tilpasse layouts direkte i mine komponenter.' },
+  { name: 'SCSS', detail: 'I use SCSS features to organize styles and reuse values across a stylesheet.', detailDa: 'Jeg bruger SCSS til at organisere styles og genbruge værdier i stylesheets.' },
+  { name: 'Sanity', detail: 'I work with Sanity as a content platform for managing structured website content.', detailDa: 'Jeg bruger Sanity som indholdsplatform til at håndtere struktureret indhold på websites.' },
+  { name: 'SQL', detail: 'I use SQL to query and work with structured data in relational databases.', detailDa: 'Jeg bruger SQL til at hente og arbejde med strukturerede data i relationsdatabaser.' },
+  { name: 'Three.js', detail: 'I explore Three.js to create and display interactive 3D content in the browser.', detailDa: 'Jeg udforsker Three.js til at skabe og vise interaktivt 3D-indhold i browseren.' },
+  { name: 'Next.js', detail: 'I build React applications with Next.js routing and its wider frontend framework features.', detailDa: 'Jeg bygger React-apps med Next.js-routing og de øvrige funktioner i frameworket.' },
 ]
 
 const AboutLayout = styled.div`
@@ -233,34 +234,35 @@ const ExpertiseDetail = styled.p`
 
 export function AboutPage() {
   const [selectedExpertise, setSelectedExpertise] = useState<string | null>(null)
+  const { language } = useLanguage()
+  const danish = language === 'da'
 
   return (
     <AboutLayout>
       <Intro>
-        <IntroEyebrow>03 / A little about me</IntroEyebrow>
+        <IntroEyebrow>{danish ? '03 / Lidt om mig' : '03 / A little about me'}</IntroEyebrow>
         <IntroHeading>
-          Curious by <span>nature.</span>
+          {danish ? 'Nysgerrig af' : 'Curious by'} <span>{danish ? 'natur.' : 'nature.'}</span>
         </IntroHeading>
         <IntroText>
-          I am Anton Olander Jensen, a 28-year-old web developer and Tech College
-          student. I enjoy bringing ideas to life in the browser, learning modern
-          tools, and paying attention to the details that make websites clear and
-          easy to use.
+          {danish
+            ? 'Jeg hedder Anton Olander Jensen, er 28 år og læser til webudvikler på Tech College. Jeg kan godt lide at føre idéer ud i livet i browseren, lære moderne værktøjer og have fokus på de detaljer, der gør websites tydelige og nemme at bruge.'
+            : 'I am Anton Olander Jensen, a 28-year-old web developer and Tech College student. I enjoy bringing ideas to life in the browser, learning modern tools, and paying attention to the details that make websites clear and easy to use.'}
         </IntroText>
       </Intro>
 
-      <Section aria-label="Background">
-        <Eyebrow>Where I am now</Eyebrow>
+      <Section aria-label={danish ? 'Baggrund' : 'Background'}>
+        <Eyebrow>{danish ? 'Hvor jeg er nu' : 'Where I am now'}</Eyebrow>
         <Grid>
           <Card>
-            <Eyebrow>Education</Eyebrow>
+            <Eyebrow>{danish ? 'Uddannelse' : 'Education'}</Eyebrow>
             <h2>Tech College</h2>
-            <p>Studying web development and building a strong foundation across design and code.</p>
+            <p>{danish ? 'Jeg læser til webudvikler og opbygger et solidt fundament inden for design og programmering.' : 'Studying web development and building a strong foundation across design and code.'}</p>
           </Card>
           <Card>
-            <Eyebrow>What I enjoy</Eyebrow>
-            <h2>Frontend craft</h2>
-            <p>Accessible interfaces, responsive layouts, and thoughtful component design.</p>
+            <Eyebrow>{danish ? 'Det, jeg holder af' : 'What I enjoy'}</Eyebrow>
+            <h2>{danish ? 'Frontend-håndværk' : 'Frontend craft'}</h2>
+            <p>{danish ? 'Tilgængelige grænseflader, responsive layouts og gennemtænkt komponentdesign.' : 'Accessible interfaces, responsive layouts, and thoughtful component design.'}</p>
           </Card>
         </Grid>
       </Section>
@@ -268,10 +270,10 @@ export function AboutPage() {
       <Section aria-labelledby="expertise-heading">
         <SectionHeader>
           <div>
-            <Eyebrow>Tools and technologies</Eyebrow>
-            <h2 id="expertise-heading">Expertise<span>.</span></h2>
+            <Eyebrow>{danish ? 'Værktøjer og teknologier' : 'Tools and technologies'}</Eyebrow>
+            <h2 id="expertise-heading">{danish ? 'Kompetencer' : 'Expertise'}<span>.</span></h2>
           </div>
-          <SectionNote>Choose a technology to see how I use it in my web development work.</SectionNote>
+          <SectionNote>{danish ? 'Vælg en teknologi for at se, hvordan jeg bruger den i mit arbejde med webudvikling.' : 'Choose a technology to see how I use it in my web development work.'}</SectionNote>
         </SectionHeader>
 
         <ExpertiseGrid>
@@ -291,7 +293,7 @@ export function AboutPage() {
                   <span>{item.name}</span>
                   <ExpandMark $selected={isSelected} aria-hidden="true">+</ExpandMark>
                 </ExpertiseButton>
-                {isSelected && <ExpertiseDetail id={detailId}>{item.detail}</ExpertiseDetail>}
+                {isSelected && <ExpertiseDetail id={detailId}>{danish ? item.detailDa : item.detail}</ExpertiseDetail>}
               </ExpertiseCard>
             )
           })}

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { useLanguage } from '../context/LanguageContext'
 
 const projects = [
   {
@@ -239,23 +240,47 @@ const RepositoryLink = styled.a`
 `
 
 export function ProjectsPage() {
+  const { language } = useLanguage()
+  const danish = language === 'da'
+  const projectTypes = danish
+    ? ['Vejrapp', 'Elpriser', 'Frontendwebsite', 'Rejsewebsite', 'Guldbånds-animation', 'Professionel hjemmeside']
+    : ['Weather application', 'Electricity prices', 'Frontend website', 'Travel website', 'Gold ribbon animation engine', 'Professional website']
+  const projectDescriptions = danish
+    ? [
+        'Et projekt, der præsenterer vejrudsigter i en overskuelig og brugervenlig grænseflade.',
+        'En app, der gør det nemmere at følge og undersøge elpriser.',
+        'En komplet frontend-hjemmeside med en sammenhængende brugeroplevelse.',
+        'Et rejsewebsite med fokus på planlægning og inspiration til ture.',
+        'En animationsmotor med flydende, gyldne bånd.',
+        'En professionel hjemmeside, der kan opleves direkte i browseren.',
+      ]
+    : [
+        'A project exploring weather information in a clear, approachable interface.',
+        'An application focused on making electricity prices easier to explore.',
+        'A complete frontend website built as a full website experience.',
+        'A full travel website project for exploring trip planning experiences.',
+        'An animation engine project featuring flowing gold ribbon visuals.',
+        'A professional website project presented as a live, browser-based experience.',
+      ]
+
   return (
     <Page>
       <SunsetHero>
-        <HeroEyebrow>02 / Selected work</HeroEyebrow>
+        <HeroEyebrow>{danish ? '02 / Udvalgte projekter' : '02 / Selected work'}</HeroEyebrow>
         <HeroTitle>
-          Made with <span>curiosity.</span>
+          {danish ? 'Skabt med' : 'Made with'} <span>{danish ? 'nysgerrighed.' : 'curiosity.'}</span>
         </HeroTitle>
         <HeroDescription>
-          A collection of applications and websites I have built while learning,
-          experimenting, and bringing ideas to the browser.
+          {danish
+            ? 'Et udvalg af apps og hjemmesider, jeg har bygget, mens jeg har lært nyt, eksperimenteret og ført idéer ud i livet på nettet.'
+            : 'A collection of applications and websites I have built while learning, experimenting, and bringing ideas to the browser.'}
         </HeroDescription>
       </SunsetHero>
 
       <ProjectSection aria-labelledby="projects-heading">
         <SectionHeading>
-          <h2 id="projects-heading">A few things I have made</h2>
-          <p>Open a project to explore its source code or live experience.</p>
+          <h2 id="projects-heading">{danish ? 'Et udvalg af mine projekter' : 'A few things I have made'}</h2>
+          <p>{danish ? 'Åbn et projekt for at se kildekoden eller prøve den færdige hjemmeside.' : 'Open a project to explore its source code or live experience.'}</p>
         </SectionHeading>
 
         <ProjectGrid>
@@ -263,12 +288,17 @@ export function ProjectsPage() {
             <ProjectCard key={project.number}>
               <CardTop>
                 <ProjectNumber>{project.number} / PROJECT</ProjectNumber>
-                <ProjectType>{project.type}</ProjectType>
+                <ProjectType>{projectTypes[Number(project.number) - 1]}</ProjectType>
               </CardTop>
-              <ProjectName>{project.name}</ProjectName>
-              <ProjectDescription>{project.description}</ProjectDescription>
+              <ProjectName>
+                {danish && project.number === '01' ? 'Vejrapp' :
+                  danish && project.number === '06' ? 'Professionelt projekt 2026' : project.name}
+              </ProjectName>
+              <ProjectDescription>{projectDescriptions[Number(project.number) - 1]}</ProjectDescription>
               <RepositoryLink href={project.url} target="_blank" rel="noreferrer">
-                {project.linkLabel}
+                {project.url.includes('github.com')
+                  ? (danish ? 'Se kode på GitHub' : 'Explore repository')
+                  : (danish ? 'Se hjemmesiden' : 'View live project')}
               </RepositoryLink>
             </ProjectCard>
           ))}

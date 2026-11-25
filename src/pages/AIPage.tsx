@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Eyebrow } from '../components/ui'
+import { useLanguage } from '../context/LanguageContext'
 
 const Page = styled.div`
   display: grid;
@@ -118,52 +119,54 @@ const Principle = styled.section`
 `
 
 export function AIPage() {
+  const { language } = useLanguage()
+  const danish = language === 'da'
+
   return (
     <Page>
       <Hero>
-        <HeroEyebrow>05 / My perspective</HeroEyebrow>
-        <Title>AI is a tool.<br /><span>Judgment is mine.</span></Title>
+        <HeroEyebrow>{danish ? '05 / Mit perspektiv' : '05 / My perspective'}</HeroEyebrow>
+        <Title>{danish ? 'AI er et værktøj.' : 'AI is a tool.'}<br /><span>{danish ? 'Jeg står for vurderingen.' : 'Judgment is mine.'}</span></Title>
         <Lead>
-          I understand how agentic systems work and how to collaborate with AI
-          tools. I can assess generated code, make changes, and decide when it is
-          ready to approve.
+          {danish
+            ? 'Jeg forstår, hvordan AI-agenter fungerer, og hvordan man samarbejder med AI-værktøjer. Jeg kan vurdere genereret kode, foretage ændringer og afgøre, hvornår den er klar.'
+            : 'I understand how agentic systems work and how to collaborate with AI tools. I can assess generated code, make changes, and decide when it is ready to approve.'}
         </Lead>
       </Hero>
 
       <section>
-        <Eyebrow>How I work with it</Eyebrow>
-        <SectionHeading>Useful when guided <span>well.</span></SectionHeading>
+        <Eyebrow>{danish ? 'Sådan arbejder jeg med AI' : 'How I work with it'}</Eyebrow>
+        <SectionHeading>{danish ? 'Nyttigt med den rette' : 'Useful when guided'} <span>{danish ? 'vejledning.' : 'well.'}</span></SectionHeading>
         <Paragraph>
-          Agentic systems combine a model with instructions, context, and tools
-          so it can work through tasks in steps. I understand that workflow and
-          the importance of checking what an agent does at each stage. I treat
-          the output as work to understand and review, not something to accept
-          automatically.
+          {danish
+            ? 'AI-agenter kombinerer en model med instruktioner, kontekst og værktøjer, så den kan løse opgaver trin for trin. Jeg forstår arbejdsgangen og vigtigheden af at kontrollere, hvad agenten gør undervejs. Jeg gennemgår resultatet og sikrer mig, at jeg forstår det, før jeg bruger det.'
+            : 'Agentic systems combine a model with instructions, context, and tools so it can work through tasks in steps. I understand that workflow and the importance of checking what an agent does at each stage. I treat the output as work to understand and review, not something to accept automatically.'}
         </Paragraph>
       </section>
 
       <Cards>
         <Card>
-          <span>01 / UNDERSTAND</span>
-          <h3>Agentic systems</h3>
-          <p>I understand how agents use goals, context, tools, and feedback to carry out multi-step work.</p>
+          <span>{danish ? '01 / FORSTÅ' : '01 / UNDERSTAND'}</span>
+          <h3>{danish ? 'AI-agenter' : 'Agentic systems'}</h3>
+          <p>{danish ? 'Jeg forstår, hvordan agenter bruger mål, kontekst, værktøjer og feedback til at løse opgaver i flere trin.' : 'I understand how agents use goals, context, tools, and feedback to carry out multi-step work.'}</p>
         </Card>
         <Card>
-          <span>02 / REVIEW</span>
-          <h3>AI-generated code</h3>
-          <p>I can read generated code, check how it fits the project, and approve it when I am confident in the result.</p>
+          <span>{danish ? '02 / GENNEMGÅ' : '02 / REVIEW'}</span>
+          <h3>{danish ? 'AI-genereret kode' : 'AI-generated code'}</h3>
+          <p>{danish ? 'Jeg kan læse genereret kode, kontrollere at den passer til projektet og godkende den, når jeg er tryg ved resultatet.' : 'I can read generated code, check how it fits the project, and approve it when I am confident in the result.'}</p>
         </Card>
         <Card>
-          <span>03 / CREATE</span>
-          <h3>My own hands-on work</h3>
-          <p>I mainly write and build things myself. AI is a useful assistant in my process, while I stay responsible for the work.</p>
+          <span>{danish ? '03 / SKABE' : '03 / CREATE'}</span>
+          <h3>{danish ? 'Mit eget praktiske arbejde' : 'My own hands-on work'}</h3>
+          <p>{danish ? 'Jeg skriver og bygger primært selv. AI er en nyttig assistent i processen, men jeg tager ansvar for arbejdet.' : 'I mainly write and build things myself. AI is a useful assistant in my process, while I stay responsible for the work.'}</p>
         </Card>
       </Cards>
 
       <Principle>
         <p>
-          I use AI to support my work, but I want to understand the code I ship
-          and keep growing as a developer by building things myself.
+          {danish
+            ? 'Jeg bruger AI som støtte i mit arbejde, men jeg vil forstå den kode, jeg udgiver, og fortsætte med at udvikle mig ved selv at bygge ting.'
+            : 'I use AI to support my work, but I want to understand the code I ship and keep growing as a developer by building things myself.'}
         </p>
       </Principle>
     </Page>

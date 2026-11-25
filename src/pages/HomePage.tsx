@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { useLanguage } from '../context/LanguageContext'
 
 const Welcome = styled.section`
   position: relative;
@@ -150,35 +151,39 @@ const Info = styled.span`
 `
 
 export function HomePage() {
+  const { language } = useLanguage()
+  const danish = language === 'da'
+
   return (
     <Welcome>
       <Intro>
-        <IntroLabel>Web developer / Denmark</IntroLabel>
+        <IntroLabel>{danish ? 'Webudvikler / Danmark' : 'Web developer / Denmark'}</IntroLabel>
         <Title>
-          Hey, I am Anton.<span>I build for the web.</span>
+          {danish ? 'Hej, jeg er Anton.' : 'Hey, I am Anton.'}
+          <span>{danish ? 'Jeg bygger til nettet.' : 'I build for the web.'}</span>
         </Title>
         <IntroText>
-          I am a 28-year-old web developer studying at Tech College. I enjoy
-          turning ideas into thoughtful, responsive experiences and learning
-          something new with every project.
+          {danish
+            ? 'Jeg er 28 år og læser til webudvikler på Tech College. Jeg kan godt lide at omsætte idéer til gennemtænkte, responsive oplevelser og lære noget nyt med hvert projekt.'
+            : 'I am a 28-year-old web developer studying at Tech College. I enjoy turning ideas into thoughtful, responsive experiences and learning something new with every project.'}
         </IntroText>
 
         <ActionRow>
           <PrimaryAction href="mailto:antonjensenv2@hotmail.com">
-            Get in touch <span aria-hidden="true"> ?</span>
+            {danish ? 'Kontakt mig' : 'Get in touch'} <span aria-hidden="true">↗</span>
           </PrimaryAction>
-          <SecondaryAction to="/projects">Explore my projects</SecondaryAction>
+          <SecondaryAction to="/projects">{danish ? 'Se mine projekter' : 'Explore my projects'}</SecondaryAction>
         </ActionRow>
 
-        <InfoRow aria-label="A little about me">
-          <Info>28 YEARS OLD</Info>
+        <InfoRow aria-label={danish ? 'Lidt om mig' : 'A little about me'}>
+          <Info>{danish ? '28 ÅR' : '28 YEARS OLD'}</Info>
           <Info>TECH COLLEGE</Info>
-          <Info>WEB DEVELOPMENT</Info>
+          <Info>{danish ? 'WEBUDVIKLING' : 'WEB DEVELOPMENT'}</Info>
         </InfoRow>
       </Intro>
       <Portrait
         src={`${import.meta.env.BASE_URL}anton-portrait.jpg`}
-        alt="Portrait of Anton Olander Jensen"
+        alt={danish ? 'Portræt af Anton Olander Jensen' : 'Portrait of Anton Olander Jensen'}
       />
     </Welcome>
   )
